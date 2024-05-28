@@ -7,11 +7,6 @@ const NewAccount = ({ changePage }) => {
     function emailChange(e) {
         setEmail(e.target.value);
     }
-    
-    const [account, setAccount] = useState("");
-    function accountChange(e) {
-        setAccount(e.target.value);
-    }
 
     const [password, setPassword] = useState("");
     function passwordChange(e) {
@@ -19,20 +14,36 @@ const NewAccount = ({ changePage }) => {
     }
 
     function identity(s) {
-        if(s==="Login" || (account==="123" && password==="123")) {
-            changePage(s)
-        }
+        const myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+    
+        const raw = JSON.stringify({
+        "email": email,
+        "password": password
+        });
+    
+        const requestOptions = {
+        method: "POST",
+        headers: myHeaders,
+        body: raw,
+        redirect: "follow"
+        };
+
+        fetch("http://localhost:8888/user_data", requestOptions)
+        .then((response) => response.text())
+        .then((result) => console.log(result))
+        .catch((error) => console.error(error));
+
+        changePage(s)
     }
 
     return <div style={{textAlign: 'center'}}>
         <div style={{fontSize: '28px', paddingBottom: '24px'}}>創建新帳號</div>
         <div>信箱</div>
-        <input type="email" value={account} onChange={emailChange}/>
-        <div>帳號</div>
-        <input type="text" value={account} onChange={accountChange}/>
+        <input type="email" value={email} onChange={emailChange}/>
         <div>密碼</div>
-        <input type="password" value={password} onChange={passwordChange}/>
-        <button className="btn0">註冊</button>
+        <input type="password" value={password} onChange={passwordChange}/><br/>
+        <button className="btn0" onClick={() => {identity('Parents')}}>註冊</button>
         <button className="btn0" onClick={() => {identity('Login')}}>返回</button>
     </div>
 }
