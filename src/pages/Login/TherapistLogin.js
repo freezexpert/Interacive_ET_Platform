@@ -3,19 +3,19 @@ import './index.css';
 
 const TherapistLogin = ({ changePage }) => {
 
-    const [email, setEmail] = useState("");
+    const [email, setEmail] = useState("123@gmail.com");
     function emailChange(e) {
         setEmail(e.target.value);
     }
 
-    const [password, setPassword] = useState("");
+    const [password, setPassword] = useState("123");
     function passwordChange(e) {
         setPassword(e.target.value);
     }
 
     function identity(s) {
         if(s==="Login" || (email==="123@gmail.com" && password==="123")) {
-            changePage(s)
+            changePage(s);
         }
     }
 

@@ -3,6 +3,7 @@ import Grid from '@mui/material/Grid';
 import Announcement from './Announcement.js';
 import Information from './Information.js';
 import Student from './Student.js'
+import EditStudentList from './EditStudentList.js';
 import './index.css';
 
 const Parents = ({ changePage }) => {
@@ -25,12 +26,14 @@ const Parents = ({ changePage }) => {
                 {studentList.map((item) => {
                     return (<button className="btn1" onClick={() => changeDisplay('Student')}>{item}</button>);
                 })}
+                <button className="btn1" onClick={() => changeDisplay('EditStudentList')}>編輯學生名單</button>
                 <button className="btn1" onClick={() => logout('Login')}>登出</button>
             </Grid>
             <Grid item xs={10}>
                 {display==='Announcement' && <Announcement />}
                 {display==='Information' && <Information />}
                 {display==='Student' && <Student />}
+                {display==='EditStudentList' && <EditStudentList studentList={studentList} setStudentList={setStudentList}/>}
             </Grid>
         </Grid>
     </div>

@@ -9,3 +9,18 @@
 .title {
     font-size: 24px;
 }
+
+.information {
+    text-indent: 16px;
+}
+
+.homework-box {
+    margin: 8px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: black;
+}
+
+.homework-item {
+    margin: 4px;
+}
