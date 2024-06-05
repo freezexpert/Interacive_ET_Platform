@@ -8,11 +8,11 @@ import './index.css';
 
 const Parents = ({ changePage }) => {
     const [display, setDisplay] = useState('Announcement');
-    function changeDisplay(s) {
+    const changeDisplay = (s) => {
         setDisplay(s)
     }
 
-    function logout(s) {
+    const logout = (s) => {
         changePage(s)
     }
 

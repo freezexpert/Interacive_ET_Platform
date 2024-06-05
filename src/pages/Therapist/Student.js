@@ -4,7 +4,7 @@ import StudentInfo from './StudentInfo.js';
 import Upload from './Upload.js';
 import Contact from './Contact.js';
 
-const Student = () => {
+const Student = ({student}) => {
 
     const [show, setShow] = useState('StudentInfo');
 
@@ -20,7 +20,7 @@ const Student = () => {
                 <button className="btn1" onClick={() => setShow('Chatroom')}>連絡家長</button>
             </Grid>
         </Grid>
-        {show==="StudentInfo" && <StudentInfo />}
+        {show==="StudentInfo" && <StudentInfo student={student}/>}
         {show==="Video" && <Upload />}
         {show==="Chatroom" && <Contact />}
     </div>

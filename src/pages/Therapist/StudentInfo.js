@@ -1,9 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-const StudentInfo = () => {
+const StudentInfo = ({student}) => {
+
+    const [name, setName] = useState(student);
+    const [phone, setPhone] = useState('');
+    const [email, setEmail] = useState('');
 
     return <div>
-        <div>學生資訊</div>
+        <div>學生姓名：{name}</div>
+        <div>電話號碼：{phone}</div>
+        <div>電子信箱：{email}</div>
     </div>
 }
 
