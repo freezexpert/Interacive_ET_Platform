@@ -8,15 +8,19 @@ const Contact = () => {
         e.preventDefault();
         if (newMessage.trim() === '') return;
 
-        const currentTime = new Date().toLocaleTimeString('zh-TW', {
+        const now = new Date();
+        const currentTime = now.toLocaleTimeString('zh-TW', {
             hour: '2-digit',
             minute: '2-digit',
         });
+        const currentDate = now.toLocaleDateString('zh-TW');
 
         const newMsg = {
             content: newMessage,
             time: currentTime,
-            sender: 'therapist', // 假設這個聊天室只有兩個人，我們是'self'
+            date: currentDate,
+            fullTime: now,
+            sender: 'therapist',
         };
 
         setMessages([...messages, newMsg]);
@@ -26,17 +30,33 @@ const Contact = () => {
     return (
         <div className="chatroom">
             <div className="messages">
-                {messages.map((message, index) => (
-                    <div
-                        key={index}
-                        className={`message ${message.sender === 'therapist' ? 'self' : 'other'}`}
-                    >
-                        <div className="message-content">
-                            <p>{message.content}</p>
-                            <span className="message-time">{message.time}</span>
-                        </div>
-                    </div>
-                ))}
+                {messages.map((message, index) => {
+                    const showDate =
+                        index === 0 ||
+                        messages[index].date !== messages[index - 1].date;
+
+                    return (
+                        <React.Fragment key={index}>
+                            {showDate && (
+                                <div className="message-date">
+                                    {message.date}
+                                </div>
+                            )}
+                            <div
+                                className={`message ${
+                                    message.sender === 'therapist' ? 'self' : 'other'
+                                }`}
+                            >
+                                <div className="message-content">
+                                    <p>{message.content}</p>
+                                    <span className="message-time">
+                                        {message.time}
+                                    </span>
+                                </div>
+                            </div>
+                        </React.Fragment>
+                    );
+                })}
             </div>
             <form className="message-input" onSubmit={handleSendMessage}>
                 <input
