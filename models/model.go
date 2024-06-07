@@ -11,7 +11,7 @@ import (
 
 type Service interface {
 	HistoryService
-	ProblemService
+	// ProblemService
 	UserService
 }
 
