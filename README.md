@@ -1,6 +1,7 @@
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+下載之後需要先執行 `npm install` 把所需要的文件裝好, 即node_modules, 再執行下列的 `npm start` .
 
 ## Available Scripts
 
