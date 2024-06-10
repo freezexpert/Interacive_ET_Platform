@@ -1,0 +1,196 @@
+.btn1 {
+    width: 80%;
+    height: 24px;
+    margin: 4px;
+    font-size: medium;
+    background-color: transparent;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.btn1.unread {
+    color: red;
+}
+
+.title {
+    font-size: 24px;
+}
+
+.information {
+    text-indent: 16px;
+}
+
+.homework-box {
+    margin: 8px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: black;
+}
+
+.homework-item {
+    margin: 4px;
+}
+
+.chatroom {
+    display: flex;
+    flex-direction: column;
+    height: 85vh;
+    background-color: #f5f5f5;
+}
+
+.messages {
+    flex: 1;
+    padding: 10px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.message {
+    display: flex;
+    margin-bottom: 10px;
+}
+
+.message.self {
+    justify-content: flex-end;
+}
+
+.message.other {
+    justify-content: flex-start;
+}
+
+.message-content {
+    max-width: 60%;
+    padding: 0px;
+    border-radius: 6px;
+    background-color: #ffffff;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    word-wrap: break-word;
+    white-space: pre-wrap;
+}
+
+.message.self .message-content {
+    background-color: #dcf8c6;
+}
+
+.message-time {
+    display: block;
+    text-align: right;
+    font-size: 0.8em;
+    color: #888888;
+    margin-top: 5px;
+}
+
+.message-date {
+    display: block;
+    text-align: center;
+    font-size: 0.9em;
+    color: #888888;
+    margin: 10px 0;
+}
+
+.message-input {
+    display: flex;
+    padding: 10px;
+    background-color: #ffffff;
+    border-top: 1px solid #dddddd;
+}
+
+.message-input input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #dddddd;
+    border-radius: 20px;
+    margin-right: 10px;
+}
+
+.message-input button {
+    padding: 10px 20px;
+    border: none;
+    background-color: #007bff;
+    color: white;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+.message-input button:hover {
+    background-color: #0056b3;
+}
+
+
+.announcement-container {
+    padding: 20px;
+    font-family: Arial, sans-serif;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 4px;
+}
+
+.announcements-list {
+    margin-top: 4px;
+}
+
+.announcement-item {
+    background-color: #f9f9f9;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.announcement-text {
+    margin-bottom: 5px;
+}
+
+.announcement-time {
+    font-size: 12px;
+    color: #888;
+}
+
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 4px;
+    width: 300px;
+    position: relative;
+}
+
+.close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    font-size: 20px;
+}
+
+.announcement-textarea {
+    width: 80%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    resize: none;
+}
+
+.submit-btn {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+}
