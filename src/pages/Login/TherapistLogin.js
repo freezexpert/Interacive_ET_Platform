@@ -24,12 +24,12 @@ const TherapistLogin = ({ changePage }) => {
     }
 
     return (
-        <div className="login-page">
+        <div className="login-enter">
             <div className="login-title">您的身分: 治療師</div>
             <div>帳號</div>
             <input className="input-field" type="email" value={email} onChange={emailChange} />
             <div>密碼</div>
-            <input className="input-field" type="password" value={password} onChange={passwordChange} /><br />
+            <input className="input-field" type="password" value={password} onChange={passwordChange} />
             <button className="btn0" onClick={() => { identity('Therapist') }}>登入</button>
             <button className="btn0" onClick={() => { identity('Login') }}>返回</button>
         </div>

@@ -20,7 +20,7 @@ const ParentsLogin = ({ changePage }) => {
     }
 
     return (
-        <div className="login-page">
+        <div className="login-enter">
             <div className="login-title">您的身分: 家長</div>
             <div>帳號</div>
             <input className="input-field" type="text" value={email} onChange={emailChange} />

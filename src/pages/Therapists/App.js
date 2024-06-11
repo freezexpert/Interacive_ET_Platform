@@ -1,7 +1,8 @@
 import React from 'react';
 import { useState } from 'react';
 import Sidebar from './Components/Sidebar';
-import TopNav from './Components/TopNav';
+import TopNav from '../../navigation/TopNav';
+import './App.css';
 
 import Announcement from './Announcement'; // Example component
 import Information from './Information';
@@ -48,18 +49,17 @@ const App = ({changePage}) => {
         return <Announcement />
     }
   };
-
   return (
-    <div>
+    <div id="root">
       <TopNav />
-      <Sidebar setCurrentPage={setCurrentPage}/>
-      <div className="content" style={{ marginTop: '50px', marginLeft: '250px' }}>
-        {renderPage()}
-        {/* Your other components and content */}
-        
+      <div className='app-container'>
+          <Sidebar setCurrentPage={setCurrentPage} />
+          <div className="main-content">
+              {renderPage()}
+              {/* Your other components and content */}
+          </div>
       </div>
     </div>
-
   );
 };
 

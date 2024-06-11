@@ -38,7 +38,7 @@ const NewAccount = ({ changePage }) => {
     }
 
     return (
-        <div className="login-page">
+        <div className="login-enter">
             <div className="login-title">創建新帳號</div>
             <div>信箱</div>
             <input className="input-field" type="email" value={email} onChange={emailChange} />
