@@ -1,0 +1,60 @@
+/* Sidebar.css */
+:root {
+    --white-color: #fff;
+    --blue-color: #4070f4;
+    --grey-color: #707070;
+    --grey-color-light: #aaa;
+  }
+  .sidebar {
+      flex-direction: column;
+      height: 100%;
+      width: 250px;
+      position: fixed;
+      top: 75px; /*Adjsuted to be below the topnav bar */
+      left: 0;
+      background-color: var(--white-color);
+      padding-top: 20px;
+      z-index: 0; /* Ensures it stays below the top nav*/
+  }
+    
+  .sidebar a {
+      padding: 10px 20px;
+      text-decoration: none;
+      font-size: 20px;
+      color: black;
+      display: block;
+  }
+  .sidebar a.unread{
+      padding: 10px 20px;
+      text-decoration: none;
+      font-size: 20px;
+      font-weight: 1000;
+      color: black;
+      background-color: bisque;
+      display: block;
+  }
+    
+  .sidebar a:hover {
+      background-color: #575757;
+      color: white;
+  }
+  
+  /*下面是新加入複菜單*/
+  
+  .submenu {
+    padding-left: 0px;
+    font-weight: 700;
+    cursor: pointer;
+  }
+  
+  .submenu-items {
+    padding-left: 20px;
+    display: none; /* Initially hide submenus */
+    font-weight: 500;
+  }
+  
+  
+  .submenu:hover .submenu-items {
+    display: block; /* Show submenus on hover */
+  }
+  

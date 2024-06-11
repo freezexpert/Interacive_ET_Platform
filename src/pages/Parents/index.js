@@ -1,14 +1,19 @@
 import React, {useState} from 'react';
 import Grid from '@mui/material/Grid';
+
+import ParentSideBar from './Components/ParentSideBar.js';
+import TopNav from '../../navigation/TopNav';
+
 import Announcement from './Announcement.js';
 import Contact from './Contact.js';
 import Upload from './Upload.js';
 import Information from './Information.js';
 import './index.css';
+import { red } from '@mui/material/colors';
 
 const Parents = ({ changePage }) => {
     const [display, setDisplay] = useState('Announcement');
-    const [newMessage, setNewMessage] = useState({'Announcement': false, 'Contact': false, 'Upload': false, 'Information': false});
+    const [newMessage, setNewMessage] = useState({'Announcement': true, 'Contact': false, 'Upload': false, 'Information': false});
 
     const changeDisplay = (s) => {
         setNewMessage((prevState) => ({
@@ -22,23 +27,34 @@ const Parents = ({ changePage }) => {
         changePage(s);
     }
 
-    return <div>
-        <Grid container>
-            <Grid item xs={2}>
-                <button className={`btn1 ${newMessage['Announcement']? 'unread' : ''}`} onClick={() => changeDisplay('Announcement')}>公告</button>
-                <button className={`btn1 ${newMessage['Contact']? 'unread' : ''}`} onClick={() => changeDisplay('Contact')}>聯絡治療師</button>
-                <button className={`btn1 ${newMessage['Upload']? 'unread' : ''}`} onClick={() => changeDisplay('Upload')}>影片上傳</button>
-                <button className={`btn1 ${newMessage['Information']? 'unread' : ''}`} onClick={() => changeDisplay('Information')}>早療資訊</button>
-                <button className="btn1" onClick={() => logout('Login')}>登出</button>
-            </Grid>
-            <Grid item xs={10}>
-                {display==='Announcement' && <Announcement />}
-                {display==='Contact' && <Contact />}
-                {display==='Upload' && <Upload />}
-                {display==='Information' && <Information />}
-            </Grid>
-        </Grid>
-    </div>
+    const renderPage = () =>{
+        switch(display){
+            case 'Announcemnet':
+                return <Announcement />
+            case 'Information':
+                return <Information />
+            case 'Contact':
+                return <Contact />
+            case 'Upload':
+                return <Upload />
+            case 'logout':
+                changePage('Login');
+            default: 
+                return <Announcement />
+        }
+    }
+
+    return(
+        <div id='root'>
+            <TopNav />
+            <div className='app-container'>
+                <ParentSideBar changeDisplay={changeDisplay} newMessage={newMessage}/>
+                <div className='main-content'>
+                    {renderPage()}
+                </div>
+            </div>
+        </div>
+    )
 }
 
 export default Parents

@@ -1,3 +1,36 @@
+/*Layout Design*/
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    font-family: Arial, sans-serif;
+    background-color: #ebf3fc;
+  }
+  
+  #root {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+  
+  .app-container {
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+  }
+  
+  /* Main content */
+  .main-content {
+    margin-left: 0px; /* Adjust according to the width of your sidebar */
+    margin-top: 100px;
+    padding: 20px;
+    flex: 1;
+  }
+
+
+
+
 .btn1 {
     width: 80%;
     height: 24px;
