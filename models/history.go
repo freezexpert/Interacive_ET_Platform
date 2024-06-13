@@ -25,7 +25,7 @@ type Chat struct {
 type HistoryService interface {
 	Search_chat(id string) (bool, []Chat)
 	Create_chat(his History) error
-	Insert_chat(fto string, chats []Chat) error
+	Insert_chat(to string, chats []Chat) error
 	// Delete_db(id string) error
 
 }

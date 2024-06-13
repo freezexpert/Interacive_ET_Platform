@@ -17,7 +17,6 @@ type User struct {
 	Phone     string    `json:"phone" bson:"phone"`
 	CreatedAt time.Time `json:"created_at" bson:"created_at"`
 	UpdatedAt time.Time `json:"update_at" bson:"update_at"`
-	List      []User    `json:"list" bson:"list"`
 }
 
 type UserService interface {
