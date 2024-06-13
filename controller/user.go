@@ -31,8 +31,7 @@ func (ops *BaseController) UserData(c *gin.Context) {
 			HandleSucccessResponse(c, "")
 			return
 		} else {
-			HandleFailedResponse(c, http.StatusNotFound, fmt.Errorf("user %s not found", request.UserID))
+			HandleFailedResponse(c, http.StatusNotFound, fmt.Errorf("invalid syntax"))
 		}
 	}
-
 }

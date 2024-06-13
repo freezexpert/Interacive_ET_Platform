@@ -30,11 +30,23 @@ func (srv *server) routes() http.Handler {
 	v1 := srv.router.Group("/")
 	v1.Use()
 	{
-		// v1.POST("/user_problem", controller.GetUserProblem)
-		// v1.POST("/user_history", controller.GetHistory)
+		v1.POST("/post_his", controller.PostHistory)
+		v1.POST("/history", controller.GetHistory)
 		v1.POST("/user_data", controller.UserData)
-		// v1.POST("/save_problem", controller.Save_problem)
-		// v1.POST("/search_problem", controller.Search_problem)
+		v1.POST("/post_video", controller.PostVideo)
+		v1.POST("/get_video", controller.GetVideo)
+		v1.GET("/announcement", controller.GetAnnouncements)
+		v1.POST("/announcement", controller.AddAnnouncement)
+		v1.POST("/info", controller.AddInfo)
+		v1.GET("/info", controller.GetInfo)
+		v1.DELETE("info/:id", controller.DeleteInfo)
+		v1.POST("/qa", controller.AddQA)
+		v1.GET("/qa", controller.GetQA)
+		v1.DELETE("qa/:id", controller.DeleteQA)
+		v1.POST("/student", controller.GetStudent)
+		v1.GET("/student", controller.AddStudent)
+		v1.DELETE("student/:id", controller.Delete_Student)
+
 	}
 	return srv.router
 }

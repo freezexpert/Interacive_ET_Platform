@@ -17,12 +17,18 @@ func (ops *BaseController) GetHistory(c *gin.Context) {
 		return
 	}
 	log.Println("Valid JSON data")
-	ok, history := ops.Service.Search_chat(request.UserID)
+	ok, history := ops.Service.Search_chat(request.From)
 	if ok {
 		HandleSucccessResponse(c, "", history)
 		return
 	} else {
-		HandleFailedResponse(c, http.StatusNotFound, fmt.Errorf("user %s not found", request.UserID))
+		ok, history := ops.Service.Search_chat(request.To)
+		if ok {
+			HandleSucccessResponse(c, "", history)
+			return
+		} else {
+			HandleFailedResponse(c, http.StatusNotFound, fmt.Errorf("user %s not found", request.From))
+		}
 	}
 }
 
@@ -33,10 +39,10 @@ func (ops *BaseController) PostHistory(c *gin.Context) {
 		return
 	}
 	log.Println("Valid JSON data")
-	is_existed, _ := ops.Service.Search_chat(request.UserID)
+	is_existed, _ := ops.Service.Search_chat(request.To)
 	if is_existed {
 		log.Print("user already existed")
-		err := ops.Service.Insert_chat(request.UserID, request.Chats)
+		err := ops.Service.Insert_chat(request.To, request.Chats)
 		if err != nil {
 			HandleFailedResponse(c, http.StatusBadRequest, err)
 			return

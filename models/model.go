@@ -11,8 +11,12 @@ import (
 
 type Service interface {
 	HistoryService
-	// ProblemService
+	VideoService
 	UserService
+	AnnouncementService
+	InfoService
+	QAService
+	StudentService
 }
 
 type service struct {

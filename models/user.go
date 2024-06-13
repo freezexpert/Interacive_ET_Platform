@@ -17,6 +17,7 @@ type User struct {
 	Phone     string    `json:"phone" bson:"phone"`
 	CreatedAt time.Time `json:"created_at" bson:"created_at"`
 	UpdatedAt time.Time `json:"update_at" bson:"update_at"`
+	List      []User    `json:"list" bson:"list"`
 }
 
 type UserService interface {
@@ -68,6 +69,7 @@ func (t *controllerOps) Create_user(user User) error {
 		"password":   user.Password,
 		"phone":      user.Phone,
 		"name":       user.Name,
+		"role":       user.Role,
 		"created_at": time.Now(),
 		"updated_at": time.Now(),
 	}

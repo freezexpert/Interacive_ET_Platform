@@ -9,31 +9,37 @@ import (
 )
 
 type History struct {
-	UserID string `json:"user_id" bson:"user_id"`
-	Chats  []Chat `json:"chats" bson:"chats"`
+	From  string `json:"from" bson:"from"`
+	To    string `json:"to" bson:"to"`
+	Chats []Chat `json:"chats" bson:"chats"`
 }
 
 type Chat struct {
-	Sender  string `json:"sneder" bson:"sneder"`
-	Content string `json:"content" bson:"content"`
-	Time    string `json:"time" bson:"time"`
+	Sender   string `json:"sender" bson:"sender"`
+	Content  string `json:"content" bson:"content"`
+	Time     string `json:"time" bson:"time"`
+	Date     string `json:"date" bson:"date"`
+	Fulltime string `json:"fulltime" bson:"fulltime"`
 }
 
 type HistoryService interface {
 	Search_chat(id string) (bool, []Chat)
 	Create_chat(his History) error
-	Insert_chat(id string, chats []Chat) error
+	Insert_chat(fto string, chats []Chat) error
 	// Delete_db(id string) error
 
 }
 
-func (t *controllerOps) Search_chat(id string) (bool, []Chat) {
-	c := t.Client.Database("ET").Collection("History")
-	log.Println(id)
+func (t *controllerOps) Search_chat(email string) (bool, []Chat) {
+	c := t.Client.Database("ET").Collection("history")
+	// log.Println(id)
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
 	selector := bson.M{
-		"user_id": id,
+		"$or": []bson.M{
+			{"from": email},
+			{"to": email},
+		},
 	}
 	u := &History{}
 	if err := c.FindOne(ctx, selector).Decode(u); err != nil {
@@ -44,12 +50,13 @@ func (t *controllerOps) Search_chat(id string) (bool, []Chat) {
 }
 
 func (t *controllerOps) Create_chat(his History) error {
-	c := t.Client.Database("Project").Collection("History")
+	c := t.Client.Database("ET").Collection("history")
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
 	new := bson.M{
-		"user_id": his.UserID,
-		"chats":   his.Chats,
+		"from":  his.From,
+		"to":    his.To,
+		"chats": his.Chats,
 	}
 	if i, err := c.InsertOne(ctx, new); err != nil {
 		return err
@@ -60,18 +67,18 @@ func (t *controllerOps) Create_chat(his History) error {
 	// return nil
 }
 
-func (t *controllerOps) Insert_chat(id string, chats []Chat) error {
-	c := t.Client.Database("Project").Collection("History")
+func (t *controllerOps) Insert_chat(to string, chats []Chat) error {
+	c := t.Client.Database("ET").Collection("history")
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
 	selector := bson.M{
-		"user_id": id,
+		"to": to,
 	}
 	u := &History{}
 	if err := c.FindOne(ctx, selector).Decode(u); err != nil {
 		return err
 	} else {
-		u.Chats = chats
+		u.Chats = append(u.Chats, chats...)
 		_, err = c.UpdateOne(ctx, selector, bson.M{"$set": u})
 		if err != nil {
 			return err
