@@ -17,7 +17,7 @@ body {
     justify-content: center;
 } 下面的方法學習怎麼做一個container!*/
 .flex-container {
-    margin-top: 250px;
+    margin-top: 15%;
     display: flex;
     align-items: stretch; /* Ensure child elements are stretched to the same height */
     justify-content: center;
@@ -64,7 +64,7 @@ body {
 }
 
 .login-enter {
-    margin-top: 225px;
+    margin-top: 5%;
     background-color: white;
     padding: 40px;
     border-radius: 8px;
