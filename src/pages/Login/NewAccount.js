@@ -12,6 +12,14 @@ const NewAccount = ({ changePage }) => {
     function passwordChange(e) {
         setPassword(e.target.value);
     }
+    const [username, setUsername] = useState("");
+    function usernameChange(e) {
+        setUsername(e.target.value);
+    }
+    const [role, setRole] = useState("");
+    function roleChange(e) {
+        setRole(e.target.value);
+    }
 
     function identity(s) {
         const myHeaders = new Headers();
@@ -19,7 +27,9 @@ const NewAccount = ({ changePage }) => {
 
         const raw = JSON.stringify({
             "email": email,
-            "password": password
+            "password": password,
+            "name": username,
+            "role": role
         });
 
         const requestOptions = {
@@ -44,6 +54,14 @@ const NewAccount = ({ changePage }) => {
             <input className="input-field" type="email" value={email} onChange={emailChange} />
             <div>密碼</div>
             <input className="input-field" type="password" value={password} onChange={passwordChange} /><br />
+            <div>使用者名稱</div>
+            <input className="input-field" type="text" value={username} onChange={usernameChange} /><br />
+            <div>使用者身分</div>
+            <select className="input-field" value={role} onChange={roleChange}>
+                <option>請選擇以下身分</option>
+                <option value="Parent">家長</option>
+                <option value="Therapist">治療師</option>
+            </select><br />
             <button className="btn0" onClick={() => { identity('Parents') }}>註冊</button>
             <button className="btn0" onClick={() => { identity('Login') }}>返回</button>
         </div>

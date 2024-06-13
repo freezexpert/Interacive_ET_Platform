@@ -1,9 +1,13 @@
-import React, { useState } from 'react';
-
+import React, { useState, useEffect } from 'react';
+import { useAuth } from '../Login/Auth';
 const Contact = () => {
+    const { user } = useAuth();
     const [messages, setMessages] = useState([]);
     const [newMessage, setNewMessage] = useState('');
-
+    useEffect(() => {
+        // Fetch messages from backend when component mounts
+        fetchMessages();
+    }, []);
     const handleSendMessage = (e) => {
         e.preventDefault();
         if (newMessage.trim() === '') return;
@@ -22,9 +26,71 @@ const Contact = () => {
             fullTime: now,
             sender: 'parent',
         };
-
+        saveMessageToBackend(newMsg);
+        console.log(newMsg);
         setMessages([...messages, newMsg]);
         setNewMessage('');
+    };
+    const fetchMessages = () => {
+        const raw = JSON.stringify({
+            "from": user.email,
+            "to": user.email,
+        });
+        console.log(raw);
+        const myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+        const requestOptions = {
+            method: 'POST',
+            headers:myHeaders,
+            body: raw,
+        };
+        fetch('http://localhost:8888/history', requestOptions)
+            .then(response => response.json())
+            .then(data => {
+                // Update state with fetched messages
+                console.log(data);
+                if (Array.isArray(data.data)) {
+                    setMessages(data.data);
+                } else {
+                    console.error("Fetched data is not an array:", data);
+                }
+            })
+            .catch(error => console.error('Error fetching messages:', error));
+    };
+    const saveMessageToBackend = (message) => {
+        const url = 'http://localhost:8888/post_his'; // Replace with actual endpoint
+        if (!user) {
+            console.error('Cannot retrieve email address');
+            return;
+        }
+        // console.log(message)
+        const raw = JSON.stringify({
+            "from": "",
+            "to": user.email,
+            "chats": [message],
+        });
+        console.log(raw);
+        const myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+        const requestOptions = {
+            method: 'POST',
+            headers:myHeaders,
+            body: raw,
+        };
+        // console.log(requestOptions)
+        fetch(url, requestOptions)
+            .then((response) => {
+                // console.log(response)
+                response.json();
+                // console.log(response)
+            })
+            .then((data) => {
+                console.log(data)
+                // if (!data.success) {
+                //     // console.error('Failed to save message:', data);
+                // }
+            })
+            .catch((error) => console.error('Error:', error));
     };
 
     return (

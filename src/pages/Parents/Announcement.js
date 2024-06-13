@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './index.css';
 
 const Announcement = () => {
     const [announcements, setAnnouncements] = useState([]);
-
+    useEffect(() => {
+        fetchAnnouncements();
+    }, []);
     const formatDate = (date) => {
         const options = {
             year: 'numeric', month: 'numeric', day: 'numeric',
@@ -11,7 +13,21 @@ const Announcement = () => {
         };
         return new Intl.DateTimeFormat('default', options).format(date);
     };
-
+    const fetchAnnouncements = async () => {
+        try {
+            const response = await fetch('http://localhost:8888/announcement', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+            const data = await response.json();
+            setAnnouncements(data || []);
+            // setAnnouncements(data);
+        } catch (error) {
+            console.error('Error fetching announcements:', error);
+        }
+    };
     return (
         <div className="announcement-container">
             <div className="header">

@@ -1,79 +1,66 @@
-// import React, {useState} from 'react';
-
-// const EditStudentList = ({ studentList, setStudentList }) => {
-//     const [newStudent, setNewStudent] = useState('');
-//     const [tempStudentList, setTempStudentList] = useState([...studentList]);
-//     const [changesMade, setChangesMade] = useState(false);
-
-//     const handleAddStudent = (e) => {
-//         e.preventDefault();
-//         if (newStudent.trim() !== '') {
-//             setTempStudentList([...tempStudentList, newStudent.trim()]);
-//             setNewStudent('');
-//             setChangesMade(true);
-//         }
-//     };
-
-//     const handleDeleteStudent = (index) => {
-//         const updatedList = tempStudentList.filter((_, i) => i !== index);
-//         setTempStudentList(updatedList);
-//         setChangesMade(true);
-//     };
-
-//     const handleConfirmChanges = () => {
-//         setStudentList(tempStudentList);
-//         setChangesMade(false);
-//     };
-
-//     const handleCancelChanges = () => {
-//         setTempStudentList([...studentList]);
-//         setChangesMade(false);
-//     };
-
-//     return (
-//         <div>
-//             <form onSubmit={handleAddStudent}>
-//                 <label>
-//                     新學生 Gmail:
-//                     <input
-//                         type="email"
-//                         value={newStudent}
-//                         onChange={(e) => setNewStudent(e.target.value)}
-//                         required
-//                     />
-//                 </label>
-//                 <button type="submit">添加</button>
-//             </form>
-//             <ul>
-//                 {tempStudentList.map((student, index) => (
-//                     <li key={index}>
-//                         {student} <button onClick={() => handleDeleteStudent(index)}>刪除</button>
-//                     </li>
-//                 ))}
-//             </ul>
-//             {changesMade && (
-//                 <div>
-//                     <button onClick={handleConfirmChanges}>確認更改</button>
-//                     <button onClick={handleCancelChanges}>取消更改</button>
-//                 </div>
-//             )}
-//         </div>
-//     );
-// };
-
-// export default EditStudentList;
-
-
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 const EditStudentList = ({ studentList, setStudentList }) => {
   const [newStudent, setNewStudent] = useState({ name: '', phone: '', email: '' });
-
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
   const handleAddStudent = () => {
     setStudentList([...studentList, { ...newStudent, id: Date.now() }]);
     setNewStudent({ name: '', phone: '', email: '' });
   };
-
+  // useEffect(() => {
+  //   fetchStudentList();
+  // }, []);
+  // const fetchStudentList = async () => {
+  //   try {
+  //     const response = await fetch(`http://localhost:8888/student`);
+  //     if (!response.ok) {
+  //       throw new Error('Failed to fetch student list');
+  //     }
+  //     const data = await response.json();
+  //     setStudentList(data);
+  //     setIsLoading(false);
+  //   } catch (error) {
+  //     setError(error.message);
+  //     setIsLoading(false);
+  //   }
+  // };
+  // const AddStudent = async () => {
+  //   try {
+  //     const response = await fetch(`http://localhost:8888/student`, {
+  //       method: 'POST',
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //       },
+  //       body: JSON.stringify(newStudent),
+        
+  //     });
+  //     console.log(newStudent);
+  //     console.log(response);
+  //     if (!response.ok) {
+  //       throw new Error('Failed to add student');
+  //     }
+  //     const addedStudent = await response.json();
+  //     console.log(addedStudent)
+  //     setStudentList([...studentList, newStudent]);
+  //     setNewStudent({ name: newStudent.name, phone: newStudent.phone, email: newStudent.email });
+  //   } catch (error) {
+  //     setError(error.message);
+  //   }
+  // };
+  // const DeleteStudent = async (id) => {
+  //   try {
+  //     const response = await fetch(`http://localhost:8888/student/${id}`, {
+  //       method: 'DELETE',
+  //     });
+  //     if (!response.ok) {
+  //       throw new Error('Failed to delete student');
+  //     }
+  //     setStudentList(studentList.filter(student => student.id !== id));
+  //   } catch (error) {
+  //     setError(error.message);
+  //   }
+  // };
   const handleDeleteStudent = (id) => {
     setStudentList(studentList.filter(student => student.id !== id));
   };

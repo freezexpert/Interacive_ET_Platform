@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import './index.css';
+import { useAuth } from './Auth';
 
 const TherapistLogin = ({ changePage }) => {
-
+    const { setUser } = useAuth();
     const [email, setEmail] = useState("");
     function emailChange(e) {
         setEmail(e.target.value);
@@ -14,9 +15,34 @@ const TherapistLogin = ({ changePage }) => {
     }
 
     function identity(s) {
-        if (s === "Login" || (email === "123@gmail.com" && password === "123")) {
-            changePage(s)
-        }
+        const myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+
+        const raw = JSON.stringify({
+            "email": email,
+            "password": password,
+        });
+        console.log(email, password)
+        const requestOptions = {
+            method: "POST",
+            headers: myHeaders,
+            body: raw,
+            redirect: "follow"
+        };
+
+        fetch("http://localhost:8888/user_data", requestOptions)
+            .then((response) => response.json())
+            .then((result) => {
+                console.log(result.message);
+                // Assuming the response text is "true" if login is successful
+                if (result.message === "Success") {
+                    setUser({
+                        email: email,
+                    });
+                    changePage(s);
+                }
+            })
+            .catch((error) => console.error(error));
     }
     const title = {
         fontSize: '30px',

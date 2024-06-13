@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './PoJun.css';
 
 const Announcement = () => {
@@ -6,18 +6,53 @@ const Announcement = () => {
     const [showModal, setShowModal] = useState(false);
     const [newAnnouncement, setNewAnnouncement] = useState('');
 
-    const addAnnouncement = () => {
+    useEffect(() => {
+        fetchAnnouncements();
+    }, []);
+
+    const addAnnouncement = async () => {
         const now = new Date();
         const newAnn = {
-            id: announcements.length + 1,
             text: newAnnouncement,
             timestamp: now
         };
-        setAnnouncements([newAnn, ...announcements]);
-        setNewAnnouncement('');
-        setShowModal(false);
-    };
 
+        try {
+            const response = await fetch('http://localhost:8888/announcement', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(newAnn)
+            });
+
+            if (response.ok) {
+                const savedAnnouncement = await response.json();
+                setAnnouncements([savedAnnouncement, ...announcements]);
+                setNewAnnouncement('');
+                setShowModal(false);
+            } else {
+                console.error('Error adding announcement');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    };
+    const fetchAnnouncements = async () => {
+        try {
+            const response = await fetch('http://localhost:8888/announcement', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+            const data = await response.json();
+            setAnnouncements(data || []);
+            // setAnnouncements(data);
+        } catch (error) {
+            console.error('Error fetching announcements:', error);
+        }
+    };
     const formatDate = (date) => {
         const options = {
             year: 'numeric', month: 'numeric', day: 'numeric',
