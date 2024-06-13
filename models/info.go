@@ -46,10 +46,11 @@ func (t *controllerOps) CreateInfo(info Information) error {
 	c := t.Client.Database("ET").Collection("info")
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
+	new_id := primitive.NewObjectID()
 	new := bson.M{
-		"_id,omitempty": info.ID,
-		"name":          info.Name,
-		"url":           info.URL,
+		"_id":  new_id,
+		"name": info.Name,
+		"url":  info.URL,
 	}
 	if i, err := c.InsertOne(ctx, new); err != nil {
 		return err

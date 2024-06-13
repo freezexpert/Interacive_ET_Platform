@@ -38,7 +38,7 @@ func (ops *BaseController) Delete_Student(c *gin.Context) {
 		HandleFailedResponse(c, http.StatusBadRequest, err)
 		return
 	}
-	err = ops.Service.DeleteInfo(objID)
+	err = ops.Service.Delete_Student(objID)
 	if err != nil {
 		HandleFailedResponse(c, http.StatusBadRequest, err)
 		return

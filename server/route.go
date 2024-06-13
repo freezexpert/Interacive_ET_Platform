@@ -43,9 +43,9 @@ func (srv *server) routes() http.Handler {
 		v1.POST("/qa", controller.AddQA)
 		v1.GET("/qa", controller.GetQA)
 		v1.DELETE("qa/:id", controller.DeleteQA)
-		v1.POST("/student", controller.GetStudent)
-		v1.GET("/student", controller.AddStudent)
-		v1.DELETE("student/:id", controller.Delete_Student)
+		// v1.POST("/student", controller.GetStudent)
+		// v1.GET("/student", controller.AddStudent)
+		// v1.DELETE("student/:id", controller.Delete_Student)
 
 	}
 	return srv.router

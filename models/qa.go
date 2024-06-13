@@ -46,10 +46,11 @@ func (t *controllerOps) CreateQA(qa QA) error {
 	c := t.Client.Database("ET").Collection("qa")
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
+	new_id := primitive.NewObjectID()
 	new := bson.M{
-		"_id,omitempty": qa.ID,
-		"question":      qa.Question,
-		"answer":        qa.Answer,
+		"_id":      new_id,
+		"question": qa.Question,
+		"answer":   qa.Answer,
 	}
 	if i, err := c.InsertOne(ctx, new); err != nil {
 		return err
